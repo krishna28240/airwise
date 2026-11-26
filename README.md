@@ -155,7 +155,7 @@ SECURITY.md          security measures & reporting
 - The manual-AQI forecast assumes a typical winter pattern, and the UI labels it clearly as an estimate.
 
 ## 🤖 Gen AI usage
-- **Google Gemini (gemini-2.0-flash)**: personalised daily briefing, multilingual output and the grounded "Ask AirWise" chat.
+- **Google Gemini (gemini-3.8-flash, with automatic fallback models)**: personalised daily briefing, multilingual output and the grounded "Ask AirWise" chat.
 - **AI-assisted development**: the project was designed, coded, tested and documented through prompting an AI coding assistant.
 
 ## License

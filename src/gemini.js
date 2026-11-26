@@ -58,20 +58,24 @@ function summarizeContext(plan, profile, place) {
  * @param {string} prompt
  * @param {typeof fetch} [fetchImpl]
  */
-async function generate(prompt, fetchImpl = fetch, retries = 1) {
-  try {
-    return await generateOnce(prompt, fetchImpl);
-  } catch (err) {
-    if (retries > 0 && err.retryable) {
-      await new Promise((r) => setTimeout(r, 400));
-      return generate(prompt, fetchImpl, retries - 1);
+const FALLBACK_MODELS = ['gemini-flash-latest', 'gemini-flash-lite-latest'];
+
+/** Try the configured model, then fall back to other models when one is busy or retired. */
+async function generate(prompt, fetchImpl = fetch) {
+  const models = [...new Set([process.env.GEMINI_MODEL || 'gemini-3.8-flash', ...FALLBACK_MODELS])];
+  let lastErr;
+  for (const model of models) {
+    try {
+      return await generateOnce(prompt, fetchImpl, model);
+    } catch (err) {
+      lastErr = err;
+      if (!err.retryable) throw err;
     }
-    throw err;
   }
+  throw lastErr;
 }
 
-async function generateOnce(prompt, fetchImpl) {
-  const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+async function generateOnce(prompt, fetchImpl, model) {
   const url = `${API_BASE}/${encodeURIComponent(model)}:generateContent`;
   const res = await fetchImpl(url, {
     method: 'POST',
@@ -89,7 +93,7 @@ async function generateOnce(prompt, fetchImpl) {
   });
   if (!res.ok) {
     const err = new Error(`Gemini error ${res.status}`);
-    err.retryable = res.status === 429 || res.status >= 500;
+    err.retryable = res.status === 404 || res.status === 429 || res.status >= 500;
     throw err;
   }
   const data = await res.json();
