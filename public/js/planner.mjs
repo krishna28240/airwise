@@ -174,8 +174,13 @@ async function onSubmit(e, onSaved) {
   const profile = readProfile();
   const msg = validateProfileInput(profile);
   errorEl.textContent = msg;
-  form.elements.city.setAttribute('aria-invalid', String(Boolean(msg) && !profile.city && profile.aqi === undefined));
-  if (msg) return;
+  const cityMissing = Boolean(msg) && !profile.city && profile.aqi === undefined;
+  form.elements.city.setAttribute('aria-invalid', String(cityMissing));
+  if (msg) {
+    // Move focus to the field that needs fixing so keyboard and screen-reader users land on it.
+    (cityMissing ? form.elements.city : form.querySelector('input:invalid, #adults')).focus();
+    return;
+  }
 
   setBusy(submitBtn, true, 'Analysing air quality…', 'Generate plan');
   results.setAttribute('aria-busy', 'true');

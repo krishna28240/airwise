@@ -94,10 +94,10 @@ Browser (HTML/CSS + ES modules) ──► Node.js API ──► Open-Meteo (geoc
 
 ## ⚡ Efficiency
 
-- **Zero runtime dependencies** – fast start-up and a repository under 100 KB.
+- **Zero runtime dependencies** – fast start-up; the whole repository is about 240 KB (most of it the ESLint lock file).
 - TTL caches for air data (15 min) and AI briefings (30 min) cut latency and API cost.
 - In-memory static-file cache, gzip compression and `Cache-Control` headers.
-- Upstream timeouts (`AbortSignal.timeout`) stop hanging requests; Gemini falls back to lighter models only when the primary is busy (429/5xx).
+- Upstream timeouts (`AbortSignal.timeout`) stop hanging requests; Gemini falls back to other models only when the primary is busy, rate-limited or retired (429, 5xx or 404).
 - City lookups for comparison run in parallel (`Promise.allSettled`); the cleanest-window finder is an O(n) sliding window.
 - The trend chart redraws only when its container actually changes size (`ResizeObserver`).
 
@@ -107,9 +107,9 @@ Browser (HTML/CSS + ES modules) ──► Node.js API ──► Open-Meteo (geoc
 - `aria-live` regions for results, chat, errors and toasts; errors are linked to their fields with `aria-describedby` and `aria-invalid`, and focus moves to the field to fix.
 - The AQI gauge, forecast bars and trend chart have text alternatives (the chart exposes a written summary of its trend and peak).
 - Colour is never the only signal: the category name is always written out. Text colours meet WCAG AA contrast.
-- Visible focus rings, full keyboard support and interactive targets of at least 32 px.
+- Visible focus rings, full keyboard support and interactive targets of at least 32 px (inputs and buttons 36–40 px).
 - Respects `prefers-reduced-motion`; responsive from 320 px phones to desktop; print stylesheet.
-- AI output carries a `lang` attribute for correct screen-reader pronunciation in 6 languages.
+- The AI briefing carries a `lang` attribute for correct screen-reader pronunciation in 6 languages.
 
 ## 🧪 Testing
 
