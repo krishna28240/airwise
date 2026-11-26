@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AirWise – an AI-powered urban air quality assistant that turns live AQI data into personalised, hour-by-hour family health plans.">
+  <meta name="theme-color" content="#0b1220">
+  <title>AirWise – Urban Air Quality Intelligence</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Icon sprite -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M8 12h8M12 8v8M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-7-8-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 20v-4M9 20v-8M14 20V8M19 20V4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.5.6 4 2.8 4 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#home" class="brand" aria-label="AirWise home">
+        <span class="brand-mark"><svg class="ico"><use href="#i-logo"/></svg></span>
+        AirWise
+      </a>
+      <nav aria-label="Main" class="nav">
+        <a href="#planner" data-nav>Planner</a>
+        <a href="#compare" data-nav>Compare</a>
+        <a href="#insights" data-nav>Insights</a>
+        <a href="#about" data-nav>How it works</a>
+      </nav>
+      <span id="ai-status" class="badge" role="status" aria-live="polite">Connecting…</span>
+      <a href="#planner" class="btn btn-sm header-cta">Get started</a>
+    </div>
+  </header>
+
+  <main id="main">
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero page" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Live air-quality intelligence</p>
+        <h1 id="hero-title">Turn today's AQI into a <span class="grad-text">clear health plan</span> for your household.</h1>
+        <p class="lead">AirWise combines real-time pollution data, a 24-hour forecast and a clinically-informed rule engine with generative AI to tell every member of your family exactly what to do – and when.</p>
+        <div class="hero-cta">
+          <a class="btn btn-lg" href="#planner">Build a plan <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-lg btn-outline-light" href="#compare">Compare cities</a>
+        </div>
+        <ul class="hero-points">
+          <li><svg class="ico"><use href="#i-signal"/></svg> Copernicus CAMS data</li>
+          <li><svg class="ico"><use href="#i-spark"/></svg> Gemini-powered briefings</li>
+          <li><svg class="ico"><use href="#i-globe"/></svg> 6 languages</li>
+        </ul>
+      </div>
+
+      <aside class="hero-panel" aria-label="AQI reference scale">
+        <div class="panel-head">
+          <span>US AQI scale</span>
+          <span class="panel-tag">EPA standard</span>
+        </div>
+        <ul class="scale">
+          <li><i class="s0"></i><span>0–50</span><strong>Good</strong><em>Normal activity</em></li>
+          <li><i class="s1"></i><span>51–100</span><strong>Moderate</strong><em>Sensitive: limit exertion</em></li>
+          <li><i class="s2"></i><span>101–150</span><strong>Sensitive groups</strong><em>Kids &amp; elderly: reduce time out</em></li>
+          <li><i class="s3"></i><span>151–200</span><strong>Unhealthy</strong><em>Everyone: limit outdoors</em></li>
+          <li><i class="s4"></i><span>201–300</span><strong>Very unhealthy</strong><em>Stay indoors, N95 outside</em></li>
+          <li><i class="s5"></i><span>301+</span><strong>Hazardous</strong><em>Emergency conditions</em></li>
+        </ul>
+      </aside>
+    </div>
+    <div class="wrap">
+      <div class="live-strip" id="live-strip" aria-labelledby="live-title">
+        <div class="live-head">
+          <span id="live-title" class="live-label"><span class="pulse" aria-hidden="true"></span> Live now</span>
+          <span id="live-time" class="live-time">Fetching…</span>
+        </div>
+        <ul id="live-cities" class="live-cities">
+          <li class="live-city sk"></li><li class="live-city sk"></li><li class="live-city sk"></li><li class="live-city sk"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLANNER ============ -->
+  <section id="planner" class="page" aria-labelledby="planner-title">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="kicker">01 · Planner</p>
+      <h2 id="planner-title">Personalised family plan</h2>
+      <p class="sub">Describe your household once. AirWise builds a routine, per-member guidance and commute alternatives – and saves every plan to your history.</p>
+    </header>
+  <div class="layout">
+    <section class="card no-print form-panel" aria-labelledby="profile-title">
+      <h3 id="profile-title" class="panel-title">Household profile</h3>
+      <form id="profile-form" novalidate>
+        <div class="field">
+          <label for="city">City</label>
+          <div class="input-row">
+            <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="80" placeholder="e.g. Delhi, Pune, Lahore" aria-describedby="city-hint">
+            <button type="button" class="btn btn-secondary btn-icon" id="locate-btn" aria-label="Use my location" title="Use my location"><svg class="ico"><use href="#i-pin"/></svg></button>
+          </div>
+          <p id="city-hint" class="hint">Live AQI and 24-hour forecast. Location is rounded to ~1 km and never stored.</p>
+        </div>
+
+        <details class="field">
+          <summary>Enter AQI manually instead</summary>
+          <label for="aqi">Current AQI (0–999)</label>
+          <input id="aqi" name="aqi" type="number" inputmode="numeric" min="0" max="999">
+        </details>
+
+        <fieldset class="field">
+          <legend>Household members</legend>
+          <div class="row-3">
+            <div><label for="adults">Adults</label><input id="adults" name="adults" type="number" min="0" max="12" value="2"></div>
+            <div><label for="children">Children</label><input id="children" name="children" type="number" min="0" max="12" value="1"></div>
+            <div><label for="elderly">Elderly 60+</label><input id="elderly" name="elderly" type="number" min="0" max="12" value="0"></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Health conditions</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
+            <label class="chip"><input type="checkbox" name="conditions" value="copd"> COPD</label>
+            <label class="chip"><input type="checkbox" name="conditions" value="heart_disease"> Heart disease</label>
+            <label class="chip"><input type="checkbox" name="conditions" value="allergies"> Allergies</label>
+            <label class="chip"><input type="checkbox" name="conditions" value="pregnancy"> Pregnancy</label>
+            <label class="chip"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Daily outdoor activities</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="activities" value="morning_walk"> Morning walk</label>
+            <label class="chip"><input type="checkbox" name="activities" value="school_run"> School run</label>
+            <label class="chip"><input type="checkbox" name="activities" value="outdoor_play"> Kids' play</label>
+            <label class="chip"><input type="checkbox" name="activities" value="outdoor_sports"> Sports / running</label>
+            <label class="chip"><input type="checkbox" name="activities" value="yoga"> Yoga</label>
+            <label class="chip"><input type="checkbox" name="activities" value="market_errands"> Errands</label>
+          </div>
+        </fieldset>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="commute">Main commute</label>
+            <select id="commute" name="commute">
+              <option value="bus">Bus</option>
+              <option value="metro">Metro</option>
+              <option value="car">Car</option>
+              <option value="two_wheeler">Two-wheeler</option>
+              <option value="walk">Walk</option>
+              <option value="cycle">Cycle</option>
+              <option value="work_from_home">Work from home</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="commuteKm">One-way distance (km)</label>
+            <input id="commuteKm" name="commuteKm" type="number" inputmode="numeric" min="0" max="100" value="8">
+          </div>
+          <div class="field">
+            <label for="home">Home type</label>
+            <select id="home" name="home">
+              <option value="apartment">Apartment</option>
+              <option value="independent_house">Independent house</option>
+              <option value="near_main_road">Near a main road</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cooking">Cooking fuel</label>
+            <select id="cooking" name="cooking">
+              <option value="lpg">LPG / gas</option>
+              <option value="induction">Induction / electric</option>
+              <option value="biomass">Wood / biomass</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="language">Briefing language</label>
+          <select id="language" name="language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+          </select>
+        </div>
+
+        <label class="switch"><input type="checkbox" id="hasPurifier" name="hasPurifier"><span class="track" aria-hidden="true"></span> We own an air purifier</label>
+
+        <p id="form-error" class="error" role="alert" aria-live="assertive"></p>
+        <div class="submit-bar"><button type="submit" class="btn btn-lg" id="submit-btn">Generate plan</button></div>
+      </form>
+    </section>
+
+    <div class="results-col">
+    <div class="skeleton no-print" aria-hidden="true">
+      <div class="card sk-card"><div class="sk sk-circle"></div><div class="sk-lines"><div class="sk w30"></div><div class="sk w60 h20"></div><div class="sk w80"></div></div></div>
+      <div class="card"><div class="sk w30"></div><div class="sk-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="card"><div class="sk w40"></div><div class="sk w90"></div><div class="sk w70"></div></div>
+    </div>
+    <div id="empty-state" class="card empty no-print">
+      <div class="empty-art" aria-hidden="true"><svg class="ico"><use href="#i-chart"/></svg></div>
+      <h3>Your plan will appear here</h3>
+      <p class="muted">Enter a city or use your location, then select <strong>Generate plan</strong>. You'll get:</p>
+      <ul class="empty-list">
+        <li><svg class="ico"><use href="#i-signal"/></svg> Live AQI with a 24-hour forecast</li>
+        <li><svg class="ico"><use href="#i-users"/></svg> Guidance for each family member</li>
+        <li><svg class="ico"><use href="#i-clock"/></svg> An hour-by-hour routine</li>
+        <li><svg class="ico"><use href="#i-route"/></svg> Lower-emission commute options</li>
+      </ul>
+    </div>
+
+    <section id="results" class="results" aria-labelledby="results-title" aria-live="polite" aria-busy="false" hidden>
+      <h2 id="results-title" class="visually-hidden" tabindex="-1">Your personalised plan</h2>
+
+      <div class="card aqi-card">
+        <div class="aqi-dial" id="aqi-dial" role="img" aria-label="">
+          <span class="aqi-value" id="aqi-value">–</span>
+          <span class="aqi-unit">US AQI</span>
+        </div>
+        <div class="aqi-info">
+          <p class="place" id="place"></p>
+          <p class="category" id="category"></p>
+          <p class="headline" id="headline"></p>
+          <p class="meta" id="meta"></p>
+        </div>
+      </div>
+
+      <div class="card" id="forecast-card" hidden>
+        <div class="card-head"><h3>24-hour forecast</h3><span class="legend-best">Cleanest window</span></div>
+        <p class="hint" id="window-text"></p>
+        <div class="forecast" id="forecast" role="list" aria-label="Hourly AQI forecast"></div>
+      </div>
+
+      <div class="card" id="members-card" hidden>
+        <h3>Guidance by household member</h3>
+        <ul class="members" id="members"></ul>
+      </div>
+
+      <div class="card" id="routine-card" hidden>
+        <h3>Today's routine</h3>
+        <p class="hint" id="routine-note"></p>
+        <ol class="timeline" id="routine"></ol>
+      </div>
+
+      <div class="card" id="briefing-card" hidden>
+        <h3><svg class="ico"><use href="#i-spark"/></svg> AI briefing</h3>
+        <div id="briefing" class="briefing"></div>
+      </div>
+
+      <div id="sections" class="sections-grid"></div>
+
+      <div class="card" id="commute-card" hidden>
+        <h3>Commute alternatives</h3>
+        <p class="hint" id="commute-current"></p>
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden">Commute alternatives with weekly CO₂ and smog exposure</caption>
+            <thead><tr><th scope="col">Option</th><th scope="col">Weekly CO₂</th><th scope="col">CO₂ saved</th><th scope="col">Exposure</th></tr></thead>
+            <tbody id="commute-rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="actions no-print">
+        <button type="button" class="btn btn-secondary" id="print-btn"><svg class="ico"><use href="#i-print"/></svg> Print</button>
+        <button type="button" class="btn btn-secondary" id="share-btn"><svg class="ico"><use href="#i-copy"/></svg> Copy / share</button>
+        <span id="share-status" role="status" aria-live="polite"></span>
+      </div>
+
+      <div class="card no-print" aria-labelledby="chat-title">
+        <h3 id="chat-title">Ask AirWise</h3>
+        <p class="hint">Follow-up questions are answered using your live plan as context.</p>
+        <div id="chat-log" class="chat-log" aria-live="polite"></div>
+        <form id="chat-form" class="chat-form">
+          <label for="question" class="visually-hidden">Your question</label>
+          <input id="question" type="text" maxlength="500" placeholder="e.g. Is it safe for my son to play cricket at 4 PM?" autocomplete="off">
+          <button type="submit" class="btn btn-icon" aria-label="Send"><svg class="ico"><use href="#i-send"/></svg></button>
+        </form>
+        <div class="chips suggestions">
+          <button type="button" class="chip-btn" data-q="How do I build a DIY air purifier at home?">DIY purifier</button>
+          <button type="button" class="chip-btn" data-q="When should I open windows today?">When to ventilate</button>
+          <button type="button" class="chip-btn" data-q="Which mask should my child wear?">Masks for children</button>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+  </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section id="compare" class="page alt" aria-labelledby="compare-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">02 · Compare</p>
+        <h2 id="compare-title">City air-quality comparison</h2>
+        <p class="sub">Compare live AQI across up to four cities – useful for travel, relocation or checking on family elsewhere.</p>
+      </header>
+      <form id="compare-form" class="card compare-form" novalidate>
+        <div class="compare-inputs">
+          <div><label for="cmp1">City 1</label><input id="cmp1" type="text" maxlength="80" placeholder="Delhi"></div>
+          <div><label for="cmp2">City 2</label><input id="cmp2" type="text" maxlength="80" placeholder="Mumbai"></div>
+          <div><label for="cmp3">City 3 <span class="opt">optional</span></label><input id="cmp3" type="text" maxlength="80" placeholder="Bengaluru"></div>
+          <div><label for="cmp4">City 4 <span class="opt">optional</span></label><input id="cmp4" type="text" maxlength="80" placeholder="Kolkata"></div>
+        </div>
+        <div class="compare-actions">
+          <p id="compare-error" class="error" role="alert"></p>
+          <button type="submit" class="btn" id="compare-btn">Compare cities</button>
+        </div>
+      </form>
+      <div id="compare-results" class="compare-grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ============ INSIGHTS ============ -->
+  <section id="insights" class="page" aria-labelledby="insights-title">
+    <div class="wrap">
+      <header class="section-head row-between">
+        <div>
+          <p class="kicker">03 · Insights</p>
+          <h2 id="insights-title">Your air-quality history</h2>
+          <p class="sub">Every generated plan is stored in the AirWise database. Track exposure trends over time and reopen any plan.</p>
+        </div>
+        <div class="head-actions">
+          <button type="button" class="btn btn-secondary" id="export-csv"><svg class="ico"><use href="#i-download"/></svg> Export CSV</button>
+          <button type="button" class="btn btn-danger-ghost" id="clear-history"><svg class="ico"><use href="#i-trash"/></svg> Clear</button>
+        </div>
+      </header>
+
+      <ul class="kpis" aria-label="Summary statistics">
+        <li class="kpi"><span class="kpi-label">Plans generated</span><strong id="st-total">0</strong></li>
+        <li class="kpi"><span class="kpi-label">Average AQI</span><strong id="st-avg">–</strong></li>
+        <li class="kpi"><span class="kpi-label">Worst AQI recorded</span><strong id="st-max">–</strong></li>
+        <li class="kpi"><span class="kpi-label">Locations tracked</span><strong id="st-places">0</strong></li>
+      </ul>
+
+      <div class="insights-grid">
+        <div class="card">
+          <div class="card-head"><h3>AQI trend</h3><span class="muted small" id="trend-sub">Daily average</span></div>
+          <div id="trend" class="trend" role="img" aria-label="AQI trend chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Category mix</h3></div>
+          <ul id="dist" class="dist"></ul>
+          <div id="top-places-card" hidden>
+            <h4 class="mini-title">Most-checked locations</h4>
+            <ul class="top-places" id="top-places"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Plan history</h3></div>
+        <div class="table-wrap history-scroll">
+          <table>
+            <caption class="visually-hidden">Saved plans</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">Location</th><th scope="col">AQI</th><th scope="col">Category</th><th scope="col">AI</th><th scope="col" class="t-right">Actions</th></tr></thead>
+            <tbody id="history-rows"></tbody>
+          </table>
+        </div>
+        <p id="history-empty" class="empty-row">No plans yet. Generate one in the Planner and it will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="page alt" aria-labelledby="about-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">04 · How it works</p>
+        <h2 id="about-title">Reliable rules, personalised by AI</h2>
+        <p class="sub">Health guidance must be dependable. AirWise uses a deterministic, unit-tested decision engine first, then uses generative AI only to explain and personalise.</p>
+      </header>
+      <ol class="steps">
+        <li class="step"><span class="step-n">1</span><h3>Collect</h3><p>Geocodes your city and fetches current AQI, PM2.5, PM10 and a 24-hour forecast from Open-Meteo (Copernicus CAMS).</p></li>
+        <li class="step"><span class="step-n">2</span><h3>Assess</h3><p>Scores household vulnerability from age groups and conditions, and raises the risk level for sensitive families.</p></li>
+        <li class="step"><span class="step-n">3</span><h3>Plan</h3><p>Finds the cleanest 2-hour window, builds a routine, gives each member a status and ranks commute options by CO₂ and exposure.</p></li>
+        <li class="step"><span class="step-n">4</span><h3>Personalise</h3><p>Google Gemini writes a briefing in your language and answers follow-up questions, grounded in the plan.</p></li>
+      </ol>
+      <div class="features">
+        <article class="feature"><span class="f-ico"><svg class="ico"><use href="#i-shield"/></svg></span><h3>Secure by design</h3><p>Strict CSP, input allow-lists, rate limiting and a server-side API key.</p></article>
+        <article class="feature"><span class="f-ico"><svg class="ico"><use href="#i-db"/></svg></span><h3>SQLite persistence</h3><p>Plans are stored in an embedded database with a REST API for history and statistics.</p></article>
+        <article class="feature"><span class="f-ico"><svg class="ico"><use href="#i-chart"/></svg></span><h3>Insights dashboard</h3><p>Trend chart, category breakdown and CSV export to track your exposure.</p></article>
+        <article class="feature"><span class="f-ico"><svg class="ico"><use href="#i-globe"/></svg></span><h3>Accessible &amp; multilingual</h3><p>Keyboard and screen-reader friendly, responsive, with six briefing languages.</p></article>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <a href="#home" class="brand brand-light"><span class="brand-mark"><svg class="ico"><use href="#i-logo"/></svg></span> AirWise</a>
+        <p>AI-powered air-quality guidance for urban families.</p>
+      </div>
+      <nav aria-label="Footer" class="footer-nav">
+        <a href="#planner">Planner</a><a href="#compare">Compare</a><a href="#insights">Insights</a><a href="#about">How it works</a>
+      </nav>
+      <p class="disclaimer">Data: Open-Meteo / Copernicus CAMS · AI: Google Gemini. General guidance only, not medical advice.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

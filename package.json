@@ -1,0 +1,17 @@
+{
+  "name": "airwise",
+  "version": "1.0.0",
+  "description": "AirWise – GenAI Urban Air Quality Assistant that helps families beat winter smog with personalized low-emission routines and indoor air hacks.",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "dev": "node --no-warnings --watch server.js",
+    "seed": "node --no-warnings scripts/seed.js",
+    "test": "node --no-warnings --test tests/*.test.js",
+    "test:coverage": "node --no-warnings --test --experimental-test-coverage tests/*.test.js",
+    "check": "node --check server.js && for f in src/*.js public/*.js; do node --check $f || exit 1; done"
+  },
+  "license": "MIT"
+}
