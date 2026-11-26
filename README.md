@@ -5,6 +5,13 @@
 **Challenge:** PromptWars Virtual – Challenge 06
 **Chosen vertical:** Urban Air Quality Assistant for families (persona: a city household with children, elderly members and/or people with health conditions during winter smog season)
 
+## 🔗 Submission Links
+
+- 🔗 **Live:** _deployment in progress – link coming soon_
+- 💻 **GitHub:** https://github.com/krishna28240/airwise
+- 📝 **Medium:** _article coming soon_
+- 💼 **LinkedIn:** https://www.linkedin.com/in/krishna-chavan-2baa85371/
+
 ---
 
 ## ✨ Features
