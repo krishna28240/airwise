@@ -9,7 +9,7 @@
 
 - 🔗 **Live:** https://airwise-o9w8.onrender.com/
 - 💻 **GitHub:** https://github.com/krishna28240/airwise
-- 📝 **Medium:** _article coming soon_
+- 📝 **Medium:** https://medium.com/@krishna28240/building-airwise-an-ai-powered-air-quality-assistant-for-families-facing-winter-smog-1b36854fd783
 - 💼 **LinkedIn:** https://www.linkedin.com/in/krishna-chavan-2baa85371/
 
 ---
