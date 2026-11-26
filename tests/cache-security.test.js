@@ -21,7 +21,13 @@ test('RateLimiter blocks after max within window and resets', () => {
   assert.ok(rl.allow('ip', 1500));
 });
 
-test('clientIp prefers x-forwarded-for', () => {
-  assert.equal(clientIp({ headers: { 'x-forwarded-for': '1.2.3.4, 5.6.7.8' } }), '1.2.3.4');
-  assert.equal(clientIp({ headers: {}, socket: { remoteAddress: '9.9.9.9' } }), '9.9.9.9');
+test('clientIp ignores x-forwarded-for unless a proxy is trusted', () => {
+  const req = { headers: { 'x-forwarded-for': '6.6.6.6, 5.6.7.8' }, socket: { remoteAddress: '9.9.9.9' } };
+  assert.equal(clientIp(req, false), '9.9.9.9', 'spoofable header must not be trusted by default');
+});
+
+test('clientIp uses the proxy-appended (right-most) hop when trusted', () => {
+  const req = { headers: { 'x-forwarded-for': '6.6.6.6, 5.6.7.8' }, socket: { remoteAddress: '10.0.0.1' } };
+  assert.equal(clientIp(req, true), '5.6.7.8', 'client-supplied left-most value is ignored');
+  assert.equal(clientIp({ headers: {}, socket: { remoteAddress: '9.9.9.9' } }, true), '9.9.9.9');
 });

@@ -10,13 +10,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const zlib = require('node:zlib');
 
-const { validateProfile, validateQuestion, cleanText, ValidationError } = require('./validate');
+const { validateProfile, validateQuestion, ValidationError } = require('./validate');
 const { buildPlan } = require('./planner');
 const { estimateHourly } = require('./routine');
 const airdata = require('./airdata');
 const gemini = require('./gemini');
 const { openDb } = require('./db');
-const { categorize } = require('./aqi');
+const { parseCities, compareCities } = require('./compare');
 const { applySecurityHeaders, RateLimiter, clientIp } = require('./security');
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
@@ -198,21 +198,8 @@ function createHandler(overrides = {}) {
             sendJson(req, res, 200, { deleted: deps.db.clearPlans() });
             return;
           case 'GET /api/compare': {
-            const cities = [...new Set(String(url.searchParams.get('cities') || '').split(',')
-              .map((c) => cleanText(c, 80)).filter(Boolean))].slice(0, 4);
-            if (cities.length < 2) throw new ValidationError('Enter at least two cities to compare');
-            const settled = await Promise.allSettled(cities.map((c) => deps.getAirQuality(c)));
-            const results = settled.map((r, i) => {
-              if (r.status !== 'fulfilled') return { query: cities[i], error: 'Not found' };
-              const a = r.value;
-              const cat = categorize(a.aqi);
-              const hourly = a.hourly || [];
-              const best = hourly.length ? hourly.reduce((m, h) => (h.aqi < m.aqi ? h : m)) : null;
-              return { query: cities[i], place: a.place, aqi: a.aqi, pm25: a.pm25 ?? null, pm10: a.pm10 ?? null,
-                category: cat.label, color: cat.color, cleanestHour: best };
-            });
-            results.sort((x, y) => (x.error ? 1 : y.error ? -1 : x.aqi - y.aqi));
-            sendJson(req, res, 200, { results });
+            const cities = parseCities(url.searchParams.get('cities'));
+            sendJson(req, res, 200, { results: await compareCities(cities, deps.getAirQuality) });
             return;
           }
           case 'GET /api/stats':

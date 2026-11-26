@@ -132,13 +132,8 @@ a { color: var(--accent-600); }
 .scale em { font-style: normal; font-size: .78rem; color: #94a3b8; }
 .s0 { background: #22c55e; } .s1 { background: #eab308; } .s2 { background: #f97316; } .s3 { background: #ef4444; } .s4 { background: #a855f7; } .s5 { background: #881337; }
 
-.metrics-strip { list-style: none; margin: 0; padding: 24px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(148,163,184,.15); }
-.metrics-strip li { padding: 0 24px; border-left: 1px solid rgba(148,163,184,.15); }
-.metrics-strip li:first-child { border-left: 0; padding-left: 0; }
-.metrics-strip strong { display: block; color: #f8fafc; font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; }
-.metrics-strip span { font-size: .85rem; color: #94a3b8; }
 @media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 40px; } }
-@media (max-width: 680px) { .metrics-strip { grid-template-columns: 1fr 1fr; row-gap: 20px; } .metrics-strip li:nth-child(3) { border-left: 0; padding-left: 0; } .hero { gap: 40px; } }
+@media (max-width: 680px) { .hero { gap: 40px; } }
 
 /* ================= Cards ================= */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; margin-bottom: 16px; box-shadow: var(--shadow-xs); }
@@ -559,3 +554,4 @@ th, td { padding: 10px 14px; font-size: .84rem; }
 .rich-list { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 6px; }
 .rich-list li::marker { color: var(--muted); }
 .briefing strong, .msg strong { color: var(--text); font-weight: 600; }
+input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(220,38,38,.12); }

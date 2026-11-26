@@ -113,7 +113,7 @@
         <div class="field">
           <label for="city">City</label>
           <div class="input-row">
-            <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="80" placeholder="e.g. Delhi, Pune, Lahore" aria-describedby="city-hint">
+            <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="80" placeholder="e.g. Delhi, Pune, Lahore" aria-describedby="city-hint form-error">
             <button type="button" class="btn btn-secondary btn-icon" id="locate-btn" aria-label="Use my location" title="Use my location"><svg class="ico"><use href="#i-pin"/></svg></button>
           </div>
           <p id="city-hint" class="hint">Live AQI and 24-hour forecast. Location is rounded to ~1 km and never stored.</p>
@@ -318,10 +318,10 @@
       </header>
       <form id="compare-form" class="card compare-form" novalidate>
         <div class="compare-inputs">
-          <div><label for="cmp1">City 1</label><input id="cmp1" type="text" maxlength="80" placeholder="Delhi"></div>
-          <div><label for="cmp2">City 2</label><input id="cmp2" type="text" maxlength="80" placeholder="Mumbai"></div>
-          <div><label for="cmp3">City 3 <span class="opt">optional</span></label><input id="cmp3" type="text" maxlength="80" placeholder="Bengaluru"></div>
-          <div><label for="cmp4">City 4 <span class="opt">optional</span></label><input id="cmp4" type="text" maxlength="80" placeholder="Kolkata"></div>
+          <div><label for="cmp1">City 1</label><input id="cmp1" type="text" maxlength="80" autocomplete="address-level2" aria-describedby="compare-error" placeholder="Delhi"></div>
+          <div><label for="cmp2">City 2</label><input id="cmp2" type="text" maxlength="80" autocomplete="address-level2" aria-describedby="compare-error" placeholder="Mumbai"></div>
+          <div><label for="cmp3">City 3 <span class="opt">optional</span></label><input id="cmp3" type="text" maxlength="80" autocomplete="address-level2" aria-describedby="compare-error" placeholder="Bengaluru"></div>
+          <div><label for="cmp4">City 4 <span class="opt">optional</span></label><input id="cmp4" type="text" maxlength="80" autocomplete="address-level2" aria-describedby="compare-error" placeholder="Kolkata"></div>
         </div>
         <div class="compare-actions">
           <p id="compare-error" class="error" role="alert"></p>
@@ -361,7 +361,7 @@
         </div>
         <div class="card">
           <div class="card-head"><h3>Category mix</h3></div>
-          <ul id="dist" class="dist"></ul>
+          <ul id="dist" class="dist" aria-label="Plans by AQI category"></ul>
           <div id="top-places-card" hidden>
             <h4 class="mini-title">Most-checked locations</h4>
             <ul class="top-places" id="top-places"></ul>

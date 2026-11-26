@@ -241,6 +241,7 @@
     const profile = readProfile();
     const msg = clientValidate(profile);
     errorEl.textContent = msg;
+    form.elements.city.setAttribute('aria-invalid', String(Boolean(msg) && !profile.city && profile.aqi === undefined));
     if (msg) return;
 
     submitBtn.disabled = true;
@@ -453,7 +454,10 @@
     const yMax = Math.ceil(Math.max(100, ...pts.map((p) => p.aqi)) / 100) * 100;
     const x = (i) => L + (i * (W - L - R)) / (pts.length - 1);
     const y = (v) => T + (H - T - B) * (1 - v / yMax);
-    const root = svg('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'trend-svg' });
+    // Screen-reader summary of the chart (the SVG itself is decorative).
+    const peak = pts.reduce((m, q) => (q.aqi > m.aqi ? q : m));
+    box.setAttribute('aria-label', `AQI trend, ${daily ? 'daily average' : 'per plan'} over ${pts.length} points: from ${pts[0].aqi} (${pts[0].label}) to ${pts[pts.length - 1].aqi} (${pts[pts.length - 1].label}); peak ${peak.aqi} on ${peak.label}.`);
+    const root = svg('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'trend-svg', 'aria-hidden': 'true', focusable: 'false' });
     const defs = svg('defs');
     const g = svg('linearGradient', { id: 'tg', x1: 0, y1: 0, x2: 0, y2: 1 });
     g.append(svg('stop', { offset: '0%', 'stop-color': '#0f172a', 'stop-opacity': '.08' }), svg('stop', { offset: '100%', 'stop-color': '#0f172a', 'stop-opacity': '0' }));
@@ -536,7 +540,8 @@
     const err = $('#compare-error');
     const out = $('#compare-results');
     err.textContent = '';
-    if (cities.length < 2) { err.textContent = 'Enter at least two cities.'; return; }
+    $('#cmp2').setAttribute('aria-invalid', String(cities.length < 2));
+    if (cities.length < 2) { err.textContent = 'Enter at least two cities.'; $('#cmp' + (cities.length + 1)).focus(); return; }
     const btn = $('#compare-btn');
     btn.disabled = true;
     btn.textContent = 'Fetching live data…';
