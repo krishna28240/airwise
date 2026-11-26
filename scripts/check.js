@@ -7,10 +7,10 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
-const DIRS = ['.', 'src', 'public', 'scripts', 'tests'];
+const DIRS = ['.', 'src', 'public/js', 'scripts', 'tests'];
 
 const files = DIRS.flatMap((dir) =>
-  fs.readdirSync(path.join(ROOT, dir)).filter((f) => f.endsWith('.js')).map((f) => path.join(ROOT, dir, f)));
+  fs.readdirSync(path.join(ROOT, dir)).filter((f) => /\.m?js$/.test(f)).map((f) => path.join(ROOT, dir, f)));
 
 let failed = 0;
 for (const file of files) {
