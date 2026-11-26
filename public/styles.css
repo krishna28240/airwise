@@ -553,3 +553,9 @@ th, td { padding: 10px 14px; font-size: .84rem; }
 .btn-danger-ghost:hover { background: #fef2f2; }
 .bar { opacity: .7; border-radius: 3px 3px 1px 1px; }
 .bar.best { opacity: 1; }
+.briefing, .msg.bot { white-space: normal; }
+.rich-p { margin: 0 0 10px; }
+.rich-p:last-child { margin-bottom: 0; }
+.rich-list { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 6px; }
+.rich-list li::marker { color: var(--muted); }
+.briefing strong, .msg strong { color: var(--text); font-weight: 600; }

@@ -156,6 +156,36 @@
     });
   }
 
+  /* Render the small subset of Markdown Gemini uses (**bold**, bullets) with DOM nodes only – no innerHTML. */
+  function renderRich(node, text) {
+    node.replaceChildren();
+    const inline = (parent, str) => {
+      String(str).split(/(\*\*[^*]+\*\*)/g).forEach((part) => {
+        if (!part) return;
+        if (/^\*\*[^*]+\*\*$/.test(part)) parent.appendChild(el('strong', null, part.slice(2, -2)));
+        else parent.appendChild(document.createTextNode(part));
+      });
+    };
+    let list = null;
+    String(text).split(/?
+/).forEach((raw) => {
+      const line = raw.trim();
+      const bullet = line.match(/^(?:[*\-•]|\d+\.)\s+(.*)/);
+      if (bullet) {
+        if (!list) { list = el('ul', { class: 'rich-list' }); node.appendChild(list); }
+        const li = el('li');
+        inline(li, bullet[1]);
+        list.appendChild(li);
+        return;
+      }
+      list = null;
+      if (!line) return;
+      const pEl = el('p', { class: 'rich-p' });
+      inline(pEl, line.replace(/^#+\s*/, ''));
+      node.appendChild(pEl);
+    });
+  }
+
   function planAsText(data) {
     const p = data.plan;
     const lines = [`AirWise plan – ${data.place}`, `AQI ${p.aqi} (${p.category.label}): ${p.headline}`, ''];
@@ -189,7 +219,7 @@
     lastData = data;
 
     $('#briefing-card').hidden = !data.briefing;
-    $('#briefing').textContent = data.briefing || '';
+    renderRich($('#briefing'), data.briefing || '');
     $('#briefing').setAttribute('lang', (lastProfile && lastProfile.language) || 'en');
 
     const sections = $('#sections');
@@ -245,7 +275,7 @@
     log.scrollTop = log.scrollHeight;
     try {
       const data = await postJson('/api/chat', { question, profile: lastProfile });
-      pending.textContent = data.text;
+      renderRich(pending, data.text);
     } catch (err) {
       pending.textContent = err.message;
     }
