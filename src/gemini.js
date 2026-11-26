@@ -99,7 +99,8 @@ async function generateOnce(prompt, fetchImpl, model) {
   const data = await res.json();
   const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('').trim();
   if (!text) throw new Error('Empty Gemini response');
-  return text;
+  // Some models echo prompt delimiter tags; strip them from the output.
+  return text.replace(/<\/?user_question>/gi, '').trim();
 }
 
 /**

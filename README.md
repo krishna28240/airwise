@@ -7,7 +7,7 @@
 
 ## 🔗 Submission Links
 
-- 🔗 **Live:** _deployment in progress – link coming soon_
+- 🔗 **Live:** https://airwise-o9w8.onrender.com/
 - 💻 **GitHub:** https://github.com/krishna28240/airwise
 - 📝 **Medium:** _article coming soon_
 - 💼 **LinkedIn:** https://www.linkedin.com/in/krishna-chavan-2baa85371/
