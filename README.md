@@ -167,6 +167,7 @@ MIT
 npm start              # http://localhost:8080 (Node 22.13+, no dependencies)
 npm test               # 66 tests
 npm run check          # syntax-check every JS file (cross-platform)
+npm run lint           # ESLint (dev-only dependency; the app itself has zero runtime dependencies)
 npm run seed           # add demo history (use -- --reset to wipe first)
 ```
 
