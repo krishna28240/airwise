@@ -167,8 +167,7 @@
       });
     };
     let list = null;
-    String(text).split(/?
-/).forEach((raw) => {
+    String(text).split(/\r?\n/).forEach((raw) => {
       const line = raw.trim();
       const bullet = line.match(/^(?:[*\-•]|\d+\.)\s+(.*)/);
       if (bullet) {
